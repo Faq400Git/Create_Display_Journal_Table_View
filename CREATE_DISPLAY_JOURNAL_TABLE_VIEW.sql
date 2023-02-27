@@ -1,3 +1,19 @@
+---------------------------------------------------------------------------------------------------
+-- FAQ400.CREATE_DISPLAY_JOURNAL_TABLE_VIEW 
+-- Author : Roberto De Pedrini (FAQ400)
+--  https://github.com/Faq400Git/CREATE_DISPLAY_JOURNAL_TABLE_VIEW
+--
+-- SQL Stored Procedure to read data from Journal Entries, interpreting data from the DATA_ENTRY
+--     storage buffer
+--
+-- This SP create (or replace) a view for your Table or Phisical File under Journal Control
+-- reading columns and type from the Catalog SYSCOLUMNS.
+-- Pay attention for fields with data type DATE/TIME/TIMESTAMP ... the storage area in the
+-- journal is not the same as shown in the Catalog SYSCOLUMNS!
+--
+------------------------------------------------------------------------------------------------
+
+
 CREATE OR REPLACE PROCEDURE FAQ400.CREATE_DISPLAY_JOURNAL_TABLE_VIEW  ( IN MYTABLE_LIBRARY   varchar(100),
                                                         IN MYTABLE_NAME      varchar(100),
                                                         IN MYJOURNAL_LIBRARY varchar(100),
@@ -147,3 +163,26 @@ SET STRINGPOSITION=1;
 
                 
 END P1;
+
+
+
+
+---------------------------------------------------------
+-- Hw to call the Stored Procedure 
+---------------------------------------------------------
+
+-- 1 If you want call the SP from and SQL Script you need a Global Variable to store the SQL Statement created and used in the SP
+
+create variable MYDATALIB.MY_GLOBAL_VARIABLE  VARCHAR(32000);
+
+-- 2 Now you can call the SP to create your View fro Your Table and Your Journal
+
+call FAQ400.CREATE_DISPLAY_JOURNAL_TABLE_VIEW('MYDATALIB', 'MYTABLE', 'MYJOURNLIB', 'MYJOURNAL', 'MYDATALIB', 'MYVIEW', 'Y', MYDATALIB.MY_GLOBAL_VARIABLE);
+
+-- 3 Check the SQL Statment used to create the VIEW
+
+SELECT  MYDATALIB.MY_GLOBAL_VARIABLE from SYSIBM.SYSDUMMY1;
+
+-- 4 Check the view and journal entries
+SELECT * FROM MYDATALIB.MYVIEW;
+
