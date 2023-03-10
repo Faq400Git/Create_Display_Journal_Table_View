@@ -179,6 +179,17 @@ create variable MYDATALIB.MY_GLOBAL_VARIABLE  VARCHAR(32000);
 
 call FAQ400.CREATE_DISPLAY_JOURNAL_TABLE_VIEW('MYDATALIB', 'MYTABLE', 'MYJOURNLIB', 'MYJOURNAL', 'MYDATALIB', 'MYVIEW', 'Y', MYDATALIB.MY_GLOBAL_VARIABLE);
 
+-- 2bis Or, in a more clear call mode
+call FAQ400.CREATE_DISPLAY_JOURNAL_TABLE_VIEW(MYTABLE_LIBRARY => 'FAQ400JOU',
+                                              MYTABLE_NAME    => 'MYSAMPLETABLE',
+                                              MYJOURNAL_LIBRARY => 'FAQ400JOU',
+                                              MYJOURNAL_NAME    => 'QSQJRN',
+                                              MYVIEW_LIBRARY    => 'FAQ400JOU',
+                                              MYVIEW_NAME       => 'V_MYSAMPLETABLE_AUDIT2',
+                                              CREATEANDREPLACE  => 'Y',
+                                              MYCMD             => FAQ400.GV_VARCHAR);
+
+
 -- 3 Check the SQL Statment used to create the VIEW
 
 SELECT  MYDATALIB.MY_GLOBAL_VARIABLE from SYSIBM.SYSDUMMY1;
