@@ -48,6 +48,17 @@ where field1char='TEST01';
 create variable FAQ400.GV_VARCHAR  VARCHAR(32000);
 call FAQ400.CREATE_DISPLAY_JOURNAL_TABLE_VIEW('FAQ400JOU', 'MYSAMPLETABLE', 'FAQ400JOU', 'QSQJRN', 'FAQ400JOU', 'V_MYSAMPLETABLE_AUDIT', 'Y', FAQ400.GV_VARCHAR);
 
+-- Or, in a more clear way:
+call FAQ400.CREATE_DISPLAY_JOURNAL_TABLE_VIEW(MYTABLE_LIBRARY => 'FAQ400JOU',
+                                              MYTABLE_NAME    => 'MYSAMPLETABLE',
+                                              MYJOURNAL_LIBRARY => 'FAQ400JOU',
+                                              MYJOURNAL_NAME    => 'QSQJRN',
+                                              MYVIEW_LIBRARY    => 'FAQ400JOU',
+                                              MYVIEW_NAME       => 'V_MYSAMPLETABLE_AUDIT2',
+                                              CREATEANDREPLACE  => 'Y',
+                                              MYCMD             => FAQ400.GV_VARCHAR);
+
+
 -- We can view the SQL Statement for the view
 select FAQ400.GV_VARCHAR FROM SYSIBM.SYSDUMMY1;
 
